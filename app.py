@@ -1,12 +1,29 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return "<h1>Welcome to My Flask App!</h1><p>This is a simple app.</p>"
+    bmi_result = None
+    if request.method == 'POST':
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        birth_date = request.form.get('birth_date')
+        email = request.form.get('email')
+        height = request.form.get('height')
+        weight = request.form.get('weight')
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+        if '@' not in email:
+            return render_template('form.html', error="Nieprawidłowy adres email!")
 
+        try:
+            height = float(height)
+            weight = float(weight)
+            bmi_result = round(weight / (height / 100) ** 2, 2)
+        except ValueError:
+            return render_template('form.html', error="Wzrost i waga muszą być liczbami!")
 
+    return render_template('form.html', bmi_result=bmi_result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
