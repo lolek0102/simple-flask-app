@@ -14,6 +14,8 @@ def bmi():
 def calculate_bmi():
     height = float(request.form['height'])
     weight = float(request.form['weight'])
+    if height <= 0 or weight <= 0:
+        return "Nieprawidłowe dane. Wzrost i waga muszą być większe niż zero."
     bmi = weight / (height / 100) ** 2
     return f"Twoje BMI wynosi {bmi:.2f}"
 
