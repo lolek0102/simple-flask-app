@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wynik BMI</title>
+</head>
+<body>
+    <h1>Wynik BMI</h1>
+    <p>Imię: {{ first_name }}</p>
+    <p>Nazwisko: {{ last_name }}</p>
+    <p>Twoje BMI: {{ bmi|round(2) }}</p>
+    <p>Kategoria: {{ bmi_category }}</p>
+    <a href="{{ url_for('index') }}">Oblicz ponownie</a>
+</body>
+</html>
