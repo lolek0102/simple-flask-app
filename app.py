@@ -10,6 +10,13 @@ def index():
 def bmi():
     return "Strona kalkulatora BMI"
 
+@app.route('/calculate-bmi', methods=['POST'])
+def calculate_bmi():
+    height = float(request.form['height'])
+    weight = float(request.form['weight'])
+    bmi = weight / (height / 100) ** 2
+    return f"Twoje BMI wynosi {bmi:.2f}"
+
 @app.route('/calculate', methods=['POST'])
 def calculate():
     first_name = request.form['first_name']
