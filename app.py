@@ -6,6 +6,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/bmi')
+def bmi():
+    return "Strona kalkulatora BMI"
+
 @app.route('/calculate', methods=['POST'])
 def calculate():
     first_name = request.form['first_name']
