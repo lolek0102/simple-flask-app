@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def calculate():
 
         # Validate input
         if height <= 0 or weight <= 0:
-            return "Wzrost i waga muszą być większe od 0", 400
+            return render_template('error.html', message="Wzrost i waga muszą być większe od 0", back_url=url_for('index'))
 
         bmi = weight / (height / 100) ** 2
         bmi_category = ''
@@ -32,8 +32,7 @@ def calculate():
         return render_template('result.html', first_name=first_name, last_name=last_name, bmi=bmi, bmi_category=bmi_category)
 
     except ValueError:
-        return "Wprowadzone dane muszą być liczbami.", 400
+        return render_template('error.html', message="Wprowadzone dane muszą być liczbami.", back_url=url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
-
