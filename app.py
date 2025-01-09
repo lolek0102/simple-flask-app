@@ -20,14 +20,20 @@ def calculate():
 
         bmi = weight / (height / 100) ** 2
         bmi_category = ''
+        require_email = False
         if bmi < 18.5:
             bmi_category = 'Niedowaga'
         elif 18.5 <= bmi < 24.9:
             bmi_category = 'W normie'
         elif 25 <= bmi < 29.9:
             bmi_category = 'Nadwaga'
+            require_email = True
         else:
             bmi_category = 'Otyłość'
+            require_email = True
+
+        if require_email:
+            return render_template('contact.html', first_name=first_name, last_name=last_name, bmi=bmi, bmi_category=bmi_category, message="Mail do kontaktu z dietetykiem")
 
         return render_template('result.html', first_name=first_name, last_name=last_name, bmi=bmi, bmi_category=bmi_category)
 
