@@ -40,5 +40,10 @@ def calculate():
     except ValueError:
         return render_template('error.html', message="Wprowadzone dane muszą być liczbami.", back_url=url_for('index'))
 
+@app.route('/email-sent', methods=['POST'])
+def email_sent():
+    email = request.form['email']
+    return render_template('email_sent.html', message="Mail wysłany. Zapraszamy do ponownych obliczeń!", back_url=url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
